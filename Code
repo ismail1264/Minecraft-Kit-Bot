@@ -17,9 +17,9 @@ const SHULKER_INTERVAL = 600000; // 10 dakika
 
 // Rastgele mesajlar (burayı kendi kelimelerinle değiştir, örneğin ['Mesaj1', 'Mesaj2'])
 const RANDOM_MESSAGES = [
-  '%kit yazarak rastgele kit alabilirsin!',
-  'SelimBot kit dağıtıyor! %kit yazın.',
-  'Aktifim, kit için %kit!',
+  'Güçsüz Müsün? !kitrip İle Güçlen',
+  'Kit İçin !kitrip Yazınız.',
+  'Kit Mi İstiyorsun? !kitrip İle Hemen Al!',
 ];
 
 // Rastgele mesaj intervali (1.5 dk = 90 saniye)
@@ -31,9 +31,9 @@ let bot;
 // Bot oluşturma ve başlatma fonksiyonu
 function createBot() {
   bot = mineflayer.createBot({
-    host: 'deneme.com', // Sunucu IP'si
-    port: 25565,          // Sunucu portu
-    username: 'deneme' // Botun kullanıcı adı
+    host: 'mc.quiltanarchy.xyz',
+    port: 25565,
+    username: 'KitripBot' // Botun kullanıcı adı
   });
 
   // Plugin yükle
@@ -69,13 +69,13 @@ function createBot() {
     fetchShulker();
   });
 
-  // Chat event (güncellendi: %kit içeren mesajları algıla, cooldown kontrolü ekle)
+  // Chat event (güncellendi: !kitrip içeren mesajları algıla, cooldown kontrolü ekle)
   bot.on('chat', (username, message) => {
     // Mesajı küçük harfe çevir ve trim'le (boşlukları temizle)
     const cleanedMessage = message.trim().toLowerCase();
     
-    // Eğer mesaj '%kit' içeriyorsa ve bot kendisi değilse
-    if (cleanedMessage.includes('%kit') && username !== bot.username) {
+    // Eğer mesaj '!kitrip' içeriyorsa ve bot kendisi değilse
+    if (cleanedMessage.includes('kitrip') && username !== bot.username) {
       const now = Date.now();
       const lastTime = lastKitTime[username] || 0;
 
@@ -91,7 +91,7 @@ function createBot() {
       
       // 4 saniye sonra mesaj gönder
       setTimeout(() => {
-        bot.chat(`/msg ${username} tmm rastgele kit geliyo`);
+        bot.chat(`/msg ${username} tmm Kitrip kit geliyo`);
       }, 4000);
 
       // Oyuncuyu kuyruğa ekle (eğer zaten yoksa)
